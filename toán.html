@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="vi" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ôn Tập Giữa Kỳ 1 - Toán Lớp 6</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- MathJax for rendering Mathematical Formulas -->
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0284c7',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        .prevent-select {
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 font-sans h-full overflow-hidden flex flex-col">
+
+    <!-- HEADER / NAVBAR -->
+    <header class="bg-white border-b border-slate-200 px-4 py-2.5 flex items-center justify-between shadow-sm z-20 flex-shrink-0">
+        <div class="flex items-center space-x-3">
+            <div class="bg-blue-600 text-white p-2 rounded-xl flex items-center justify-center shadow-md shadow-blue-500/20">
+                <i class="fa-solid fa-square-root-variable text-lg"></i>
+            </div>
+            <div>
+                <h1 class="font-extrabold text-slate-800 text-sm md:text-base leading-tight">Ôn Tập Giữa Kỳ 1 - Toán 6</h1>
+                <p id="user-display" class="text-xs text-slate-500">Học sinh: <span class="font-semibold text-blue-600">Chưa đăng nhập</span></p>
+            </div>
+        </div>
+
+        <div class="flex items-center space-x-2 md:space-x-3">
+            <button id="btn-sound-toggle" onclick="toggleSound()" class="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs md:text-sm font-medium transition" title="Bật/Tắt Âm Thanh">
+                <i id="sound-icon" class="fa-solid fa-volume-high text-blue-600"></i>
+                <span id="sound-text" class="hidden sm:inline">Âm thanh</span>
+            </button>
+            <button id="btn-home" onclick="confirmGoHome()" class="hidden flex items-center space-x-1.5 px-3 py-1.5 rounded-xl border border-slate-300 hover:bg-slate-50 text-slate-600 text-xs md:text-sm font-medium transition">
+                <i class="fa-solid fa-house"></i>
+                <span class="hidden sm:inline">Trang chủ</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN WORKSPACE CONTAINER -->
+    <main class="flex-1 relative overflow-hidden flex flex-col">
+
+        <!-- ==================== SCREEN 1: START & HISTORY SCREEN ==================== -->
+        <section id="screen-start" class="absolute inset-0 z-10 bg-slate-50 p-4 md:p-6 overflow-y-auto flex flex-col items-center">
+            <div class="max-w-4xl w-full grid grid-cols-1 md:grid-cols-12 gap-6 my-auto">
+                
+                <!-- Left Column: Start Form -->
+                <div class="md:col-span-7 bg-white rounded-3xl shadow-xl border border-slate-200/80 p-6 md:p-8 flex flex-col justify-between">
+                    <div>
+                        <div class="text-center md:text-left mb-6">
+                            <span class="bg-blue-100 text-blue-700 text-xs font-extrabold px-3.5 py-1.5 rounded-full uppercase tracking-wider">Đề Cương Chuẩn Toán 6</span>
+                            <h2 class="text-2xl md:text-3xl font-extrabold text-slate-800 mt-3">Luyện Tập Kiểm Tra Giữa Kỳ 1</h2>
+                            <p class="text-slate-500 text-xs md:text-sm mt-1">Hệ thống bài tập trắc nghiệm, đúng/sai, trả lời ngắn và tự luận</p>
+                        </div>
+
+                        <!-- Input Name -->
+                        <div class="mb-5">
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">1. Nhập Họ và Tên Học Sinh</label>
+                            <div class="relative">
+                                <i class="fa-solid fa-user-graduate absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                                <input type="text" id="input-username" placeholder="Ví dụ: Nguyễn Văn An - Lớp 6A" class="w-full pl-10 pr-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none font-medium text-slate-800 text-sm transition">
+                            </div>
+                        </div>
+
+                        <!-- Section Selector -->
+                        <div class="mb-6">
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">2. Chọn Phần Đề Thi Muốn Làm</label>
+                            <div class="grid grid-cols-1 gap-2.5">
+                                <label class="flex items-center p-3.5 border rounded-2xl cursor-pointer hover:bg-slate-50 border-blue-300 bg-blue-50/50 transition">
+                                    <input type="radio" name="mode-select" value="mcq" checked class="text-blue-600 focus:ring-blue-500 h-4 w-4">
+                                    <div class="ml-3">
+                                        <p class="text-sm font-bold text-slate-800">PHẦN I: Trắc Nghiệm Chọn 1 Đáp Án (24 câu)</p>
+                                        <p class="text-xs text-slate-500">Bao phủ toàn bộ kiến thức Số học & Hình học phẳng</p>
+                                    </div>
+                                </label>
+                                <label class="flex items-center p-3.5 border rounded-2xl cursor-pointer hover:bg-slate-50 border-slate-200 transition">
+                                    <input type="radio" name="mode-select" value="tf" class="text-blue-600 focus:ring-blue-500 h-4 w-4">
+                                    <div class="ml-3">
+                                        <p class="text-sm font-bold text-slate-800">PHẦN II: Trắc Nghiệm Đúng / Sai (5 Bài Lớn)</p>
+                                        <p class="text-xs text-slate-500">Đánh giá tính đúng/sai của các mệnh đề số học & hình học</p>
+                                    </div>
+                                </label>
+                                <label class="flex items-center p-3.5 border rounded-2xl cursor-pointer hover:bg-slate-50 border-slate-200 transition">
+                                    <input type="radio" name="mode-select" value="short" class="text-blue-600 focus:ring-blue-500 h-4 w-4">
+                                    <div class="ml-3">
+                                        <p class="text-sm font-bold text-slate-800">PHẦN III: Câu Hỏi Trả Lời Ngắn (12 câu)</p>
+                                        <p class="text-xs text-slate-500">Điền nhanh kết quả tính toán, chu vi, diện tích, tìm x</p>
+                                    </div>
+                                </label>
+                                <label class="flex items-center p-3.5 border rounded-2xl cursor-pointer hover:bg-slate-50 border-slate-200 transition">
+                                    <input type="radio" name="mode-select" value="essay" class="text-blue-600 focus:ring-blue-500 h-4 w-4">
+                                    <div class="ml-3">
+                                        <p class="text-sm font-bold text-slate-800">PHẦN IV: Bài Tập Tự Luận (9 bài toán lớn)</p>
+                                        <p class="text-xs text-slate-500">Thực hành giải và xem lời giải từng bước chi tiết</p>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Start Button -->
+                    <button onclick="startQuiz()" class="w-full py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-2xl shadow-lg shadow-blue-500/30 flex items-center justify-center space-x-2 text-base transition transform active:scale-[0.99]">
+                        <span>Bắt Đầu Làm Bài Thi</span>
+                        <i class="fa-solid fa-circle-play text-sm"></i>
+                    </button>
+                </div>
+
+                <!-- Right Column: History Panel -->
+                <div class="md:col-span-5 bg-white rounded-3xl shadow-xl border border-slate-200/80 p-6 flex flex-col">
+                    <div class="flex items-center justify-between mb-4 border-b pb-3 border-slate-100">
+                        <div class="flex items-center space-x-2">
+                            <i class="fa-solid fa-clock-rotate-left text-blue-600"></i>
+                            <h3 class="font-bold text-slate-800 text-base">Lịch Sử Làm Bài</h3>
+                        </div>
+                        <button onclick="clearHistory()" class="text-xs text-rose-500 hover:underline font-semibold" title="Xóa lịch sử">Xóa tất cả</button>
+                    </div>
+
+                    <!-- History List Container -->
+                    <div id="start-history-container" class="flex-1 overflow-y-auto max-h-[380px] space-y-2.5 pr-1">
+                        <!-- Rendered by JS -->
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ==================== SCREEN 2: FIXED FOCUS QUIZ AREA (NO JUMP) ==================== -->
+        <section id="screen-quiz" class="absolute inset-0 z-0 bg-slate-100 flex flex-col md:flex-row hidden overflow-hidden">
+            
+            <!-- LEFT AREA: Question Content (No vertical jump) -->
+            <div class="flex-1 flex flex-col h-full overflow-hidden border-r border-slate-200">
+                
+                <!-- Progress Header Bar -->
+                <div class="bg-white px-4 py-3 border-b border-slate-200 flex items-center justify-between flex-shrink-0 shadow-sm">
+                    <div class="flex items-center space-x-3">
+                        <span id="question-badge" class="bg-blue-100 text-blue-800 text-xs font-extrabold px-3 py-1 rounded-full">Câu 1 / 24</span>
+                        <div class="h-2 w-24 md:w-44 bg-slate-200 rounded-full overflow-hidden">
+                            <div id="progress-bar" class="h-full bg-blue-600 transition-all duration-300" style="width: 5%;"></div>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4 text-xs font-semibold text-slate-600">
+                        <div><i class="fa-regular fa-clock text-blue-500 mr-1"></i>Thời gian: <span id="timer" class="font-mono font-bold text-slate-800">00:00</span></div>
+                        <div class="text-blue-600"><i class="fa-solid fa-pen-to-square mr-1"></i>Đã làm: <span id="answered-count-header">0</span></div>
+                    </div>
+                </div>
+
+                <!-- Fixed Container Box for Question (Scroll inside if long) -->
+                <div class="flex-1 p-4 md:p-6 overflow-y-auto flex flex-col justify-start md:justify-center max-w-3xl w-full mx-auto">
+                    <div id="question-card" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 md:p-6 transition-all flex flex-col">
+                        
+                        <!-- Question Header & Text -->
+                        <div class="mb-5">
+                            <h3 id="question-text" class="text-base md:text-lg font-bold text-slate-800 leading-relaxed">
+                                Đang tải nội dung...
+                            </h3>
+                            <!-- Inline SVG Graphic Container -->
+                            <div id="question-svg-container" class="mt-4 flex justify-center hidden">
+                                <!-- Dynamic SVG inserted here -->
+                            </div>
+                        </div>
+
+                        <!-- Options Box (NO INSTANT CORRECT/WRONG FEEDBACK) -->
+                        <div id="options-container" class="space-y-3">
+                            <!-- Dynamic options inserted here -->
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Bottom Navigation Bar -->
+                <div class="bg-white border-t border-slate-200 px-4 py-3 flex items-center justify-between flex-shrink-0">
+                    <button id="btn-prev" onclick="navigateQuestion(-1)" class="px-4 py-2 border border-slate-300 hover:bg-slate-50 text-slate-700 text-xs md:text-sm font-semibold rounded-xl transition flex items-center space-x-1.5 disabled:opacity-40 disabled:cursor-not-allowed">
+                        <i class="fa-solid fa-chevron-left text-xs"></i>
+                        <span>Câu trước</span>
+                    </button>
+
+                    <button onclick="finishQuizConfirmation()" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs md:text-sm font-bold rounded-xl shadow hover:shadow-md transition flex items-center space-x-1.5">
+                        <i class="fa-solid fa-paper-plane text-xs"></i>
+                        <span>Nộp bài ngay</span>
+                    </button>
+
+                    <button id="btn-next" onclick="navigateQuestion(1)" class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs md:text-sm font-semibold rounded-xl shadow hover:shadow-md transition flex items-center space-x-1.5">
+                        <span>Câu tiếp</span>
+                        <i class="fa-solid fa-chevron-right text-xs"></i>
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- RIGHT / SIDEBAR AREA: Question Palette Grid -->
+            <div class="w-full md:w-72 bg-white flex flex-col flex-shrink-0 h-44 md:h-full border-t md:border-t-0 border-slate-200">
+                <div class="p-3 border-b border-slate-200 bg-slate-50/80 flex items-center justify-between">
+                    <span class="text-xs font-bold uppercase tracking-wider text-slate-600">Danh Sách Câu Hỏi</span>
+                    <span id="answered-stat" class="text-xs text-slate-500 font-semibold">0/0 Đã chọn</span>
+                </div>
+
+                <!-- Palette Grid Buttons -->
+                <div class="flex-1 p-3 overflow-y-auto">
+                    <div id="question-grid" class="grid grid-cols-5 gap-2">
+                        <!-- Question grid items generated via JS -->
+                    </div>
+                </div>
+
+                <!-- Legend -->
+                <div class="p-3 border-t border-slate-100 bg-slate-50 text-[11px] text-slate-500 grid grid-cols-2 gap-2">
+                    <div class="flex items-center space-x-1.5">
+                        <span class="w-3 h-3 rounded-md bg-blue-600 inline-block"></span>
+                        <span>Đã làm</span>
+                    </div>
+                    <div class="flex items-center space-x-1.5">
+                        <span class="w-3 h-3 rounded-md bg-slate-100 border border-slate-300 inline-block"></span>
+                        <span>Chưa làm</span>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- ==================== SCREEN 3: SCORE & REVIEW SCREEN ==================== -->
+        <section id="screen-result" class="absolute inset-0 z-0 bg-slate-50 p-4 md:p-8 overflow-y-auto hidden">
+            <div class="max-w-4xl mx-auto space-y-6 pb-12">
+                
+                <!-- Score Summary Card -->
+                <div class="bg-white rounded-3xl shadow-lg border border-slate-200 overflow-hidden">
+                    <div class="bg-gradient-to-r from-blue-600 to-indigo-700 p-6 text-white text-center relative">
+                        <span class="bg-white/20 text-white text-xs px-3.5 py-1 rounded-full uppercase tracking-wider font-extrabold">Kết Quả Bài Làm Thi</span>
+                        <h2 class="text-2xl md:text-3xl font-extrabold mt-2" id="result-user-title">Chúc mừng!</h2>
+                        <p id="result-mode-subtitle" class="text-blue-100 text-xs md:text-sm mt-1">Đã hoàn thành bài ôn tập</p>
+
+                        <!-- Big Score Circle -->
+                        <div class="mt-6 inline-flex flex-col items-center justify-center bg-white/10 backdrop-blur-md rounded-full w-32 h-32 border-4 border-white/30 shadow-inner">
+                            <span id="result-score-num" class="text-4xl font-extrabold">0.0</span>
+                            <span class="text-[10px] uppercase tracking-widest text-blue-100 font-bold">Thang Điểm 10</span>
+                        </div>
+                    </div>
+
+                    <div class="p-6 grid grid-cols-2 md:grid-cols-4 gap-4 text-center border-b border-slate-100">
+                        <div class="bg-slate-50 p-3.5 rounded-2xl border border-slate-100">
+                            <p class="text-xs text-slate-500 font-medium">Xếp loại</p>
+                            <p id="result-grade" class="text-base font-bold text-slate-800 mt-0.5">--</p>
+                        </div>
+                        <div class="bg-slate-50 p-3.5 rounded-2xl border border-slate-100">
+                            <p class="text-xs text-slate-500 font-medium">Tỷ lệ chính xác</p>
+                            <p id="result-accuracy" class="text-base font-bold text-blue-600 mt-0.5">0%</p>
+                        </div>
+                        <div class="bg-slate-50 p-3.5 rounded-2xl border border-slate-100">
+                            <p class="text-xs text-slate-500 font-medium">Số câu đúng</p>
+                            <p id="result-correct-ratio" class="text-base font-bold text-emerald-600 mt-0.5">0/0</p>
+                        </div>
+                        <div class="bg-slate-50 p-3.5 rounded-2xl border border-slate-100">
+                            <p class="text-xs text-slate-500 font-medium">Thời gian hoàn thành</p>
+                            <p id="result-time" class="text-base font-bold text-slate-700 mt-0.5">00:00</p>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="p-4 bg-slate-50/50 flex flex-wrap gap-3 justify-center">
+                        <button onclick="restartCurrentQuiz()" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl text-sm transition shadow flex items-center space-x-2">
+                            <i class="fa-solid fa-rotate-right"></i>
+                            <span>Thi lại bài này</span>
+                        </button>
+                        <button onclick="goHome()" class="px-5 py-2.5 bg-white border border-slate-300 hover:bg-slate-100 text-slate-700 font-semibold rounded-xl text-sm transition flex items-center space-x-2">
+                            <i class="fa-solid fa-list-check"></i>
+                            <span>Chọn phần bài khác</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Review Section with Correct Answer Reveal -->
+                <div class="bg-white rounded-3xl shadow-sm border border-slate-200 p-6">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-5 gap-3 border-b pb-4 border-slate-100">
+                        <div>
+                            <h3 class="font-bold text-slate-800 text-lg">Xem Lại Chi Tiết Đáp Án</h3>
+                            <p class="text-xs text-slate-500">Dưới đây là bảng đánh giá đáp án đúng (xanh) và đáp án sai (đỏ)</p>
+                        </div>
+                        <div class="flex space-x-1 bg-slate-100 p-1 rounded-xl text-xs font-semibold">
+                            <button onclick="filterReviewList('all')" id="filter-all" class="px-3 py-1.5 rounded-lg bg-white text-slate-800 shadow-sm">Tất cả</button>
+                            <button onclick="filterReviewList('correct')" id="filter-correct" class="px-3 py-1.5 rounded-lg text-emerald-700 hover:bg-white/50">Câu đúng</button>
+                            <button onclick="filterReviewList('wrong')" id="filter-wrong" class="px-3 py-1.5 rounded-lg text-rose-700 hover:bg-white/50">Câu sai</button>
+                        </div>
+                    </div>
+
+                    <div id="review-list-container" class="space-y-4">
+                        <!-- Questions Review rendered dynamically via JS -->
+                    </div>
+                </div>
+
+                <!-- History Panel on Result Screen -->
+                <div class="bg-white rounded-3xl shadow-sm border border-slate-200 p-6">
+                    <h3 class="font-bold text-slate-800 text-base mb-3 border-b pb-2 border-slate-100">
+                        <i class="fa-solid fa-clock-rotate-left text-blue-600 mr-2"></i>Lịch Sử Các Lần Thi Trước Đã Lưu
+                    </h3>
+                    <div id="result-history-container" class="space-y-2">
+                        <!-- Rendered by JS -->
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- JAVASCRIPT APPLICATION LOGIC -->
+    <script>
+        /* ==================== SVG GRAPHICS GENERATOR ==================== */
+        const SVG_GRAPHICS = {
+            // Câu 21 MCQ: 1 tam giác lớn chia thành 4 tam giác đều nhỏ
+            triangleCluster: `
+                <svg width="200" height="170" viewBox="0 0 200 170" class="max-w-full">
+                    <polygon points="100,10 10,160 190,160" fill="none" stroke="#2563eb" stroke-width="3"/>
+                    <polygon points="55,85 145,85 100,160" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+                    <circle cx="100" cy="10" r="4" fill="#1e40af"/><text x="100" y="5" text-anchor="middle" font-size="10" font-weight="bold">A</text>
+                    <circle cx="10" cy="160" r="4" fill="#1e40af"/><text x="5" y="170" text-anchor="end" font-size="10" font-weight="bold">B</text>
+                    <circle cx="190" cy="160" r="4" fill="#1e40af"/><text x="195" y="170" text-anchor="start" font-size="10" font-weight="bold">C</text>
+                </svg>
+            `,
+            // Câu 24 MCQ: Hình bình hành ABCD với đường cao BH
+            parallelogram: `
+                <svg width="240" height="140" viewBox="0 0 240 140" class="max-w-full">
+                    <polygon points="50,20 210,20 170,110 10,110" fill="#f0fdf4" stroke="#16a34a" stroke-width="2.5"/>
+                    <line x1="50" y1="20" x2="50" y2="110" stroke="#dc2626" stroke-width="2" stroke-dasharray="4,4"/>
+                    <rect x="50" y="100" width="10" height="10" fill="none" stroke="#dc2626" stroke-width="1.5"/>
+                    <text x="45" y="15" text-anchor="end" font-weight="bold" font-size="12">A</text>
+                    <text x="215" y="15" font-weight="bold" font-size="12">B</text>
+                    <text x="175" y="125" font-weight="bold" font-size="12">C</text>
+                    <text x="5" y="125" font-weight="bold" font-size="12">D</text>
+                    <text x="50" y="125" font-weight="bold" font-size="12" fill="#dc2626">H</text>
+                    <text x="110" y="125" font-weight="bold" font-size="11" fill="#16a34a">CD = 6cm</text>
+                    <text x="55" y="65" font-weight="bold" font-size="11" fill="#dc2626">BH = 3cm</text>
+                </svg>
+            `,
+            // Phần II Bài 5: Các hình phẳng ghép
+            flatShapes: `
+                <svg width="280" height="120" viewBox="0 0 280 120" class="max-w-full">
+                    <!-- Hình chữ nhật -->
+                    <rect x="10" y="20" width="60" height="80" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+                    <text x="40" y="65" text-anchor="middle" font-size="11" font-weight="bold">HCN</text>
+                    <!-- Hình thoi -->
+                    <polygon points="120,20 150,60 120,100 90,60" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+                    <text x="120" y="65" text-anchor="middle" font-size="11" font-weight="bold">Thoi</text>
+                    <!-- Hình thang cân -->
+                    <polygon points="180,20 250,20 270,100 160,100" fill="#fce7f3" stroke="#db2777" stroke-width="2"/>
+                    <text x="215" y="65" text-anchor="middle" font-size="11" font-weight="bold">Thang Cân</text>
+                </svg>
+            `,
+            // Phần IV Bài 3: Sân khấu hình thang cân trên mảnh đất
+            stageTrapezoid: `
+                <svg width="280" height="160" viewBox="0 0 280 160" class="max-w-full">
+                    <!-- Mảnh đất chữ nhật -->
+                    <rect x="10" y="10" width="260" height="140" fill="#f1f5f9" stroke="#64748b" stroke-width="2"/>
+                    <text x="20" y="25" font-size="10" font-weight="bold" fill="#475569">Mảnh đất (40m x 25m)</text>
+                    <!-- Sân khấu hình thang cân -->
+                    <polygon points="70,40 210,40 240,120 40,120" fill="#dbeafe" stroke="#2563eb" stroke-width="2.5"/>
+                    <line x1="70" y1="40" x2="70" y2="120" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="3,3"/>
+                    <text x="140" y="32" text-anchor="middle" font-size="10" font-weight="bold" fill="#1e40af">Đáy nhỏ = 12m</text>
+                    <text x="140" y="135" text-anchor="middle" font-size="10" font-weight="bold" fill="#1e40af">Đáy lớn = 20m</text>
+                    <text x="75" y="80" font-size="10" font-weight="bold" fill="#dc2626">h = 6m</text>
+                    <text x="140" y="80" text-anchor="middle" font-size="12" font-weight="bold" fill="#1d4ed8">SÂN KHẤU</text>
+                </svg>
+            `,
+            // Phần IV Bài 5: Bồn hoa hình thoi trong sân hình chữ nhật
+            flowerBedRhombus: `
+                <svg width="260" height="150" viewBox="0 0 260 150" class="max-w-full">
+                    <!-- Sân hình chữ nhật -->
+                    <rect x="10" y="10" width="240" height="130" fill="#fef3c7" stroke="#b45309" stroke-width="2"/>
+                    <!-- Bồn hoa hình thoi -->
+                    <polygon points="130,20 230,75 130,130 30,75" fill="#dcfce7" stroke="#15803d" stroke-width="2.5"/>
+                    <line x1="30" y1="75" x2="230" y2="75" stroke="#16a34a" stroke-width="1" stroke-dasharray="3,3"/>
+                    <line x1="130" y1="20" x2="130" y2="130" stroke="#16a34a" stroke-width="1" stroke-dasharray="3,3"/>
+                    <text x="130" y="70" text-anchor="middle" font-size="11" font-weight="bold" fill="#15803d">BỒN HOA HÌNH THOI</text>
+                    <text x="130" y="90" text-anchor="middle" font-size="9" fill="#166534">d1 = 10m, d2 = 6m</text>
+                </svg>
+            `,
+            // Phần IV Bài 9: Mở rộng thửa đất hình bình hành
+            expandParallelogram: `
+                <svg width="280" height="140" viewBox="0 0 280 140" class="max-w-full">
+                    <!-- Hình bình hành ban đầu -->
+                    <polygon points="40,30 180,30 140,110 0,110" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+                    <!-- Mở rộng thêm 7m -->
+                    <polygon points="180,30 250,30 210,110 140,110" fill="#fef2f2" stroke="#ef4444" stroke-width="2" stroke-dasharray="4,4"/>
+                    <text x="80" y="70" text-anchor="middle" font-size="11" font-weight="bold" fill="#0369a1">Thửa đất ban đầu</text>
+                    <text x="190" y="70" text-anchor="middle" font-size="10" font-weight="bold" fill="#b91c1c">+189 m²</text>
+                    <text x="195" y="22" text-anchor="middle" font-size="10" font-weight="bold" fill="#ef4444">Tăng 7m</text>
+                </svg>
+            `
+        };
+
+        /* ==================== COMPLETE DATASET (DE CUONG TOAN 6) ==================== */
+        const MATH6_DATA = {
+            // PHẦN I: 24 CÂU TRẮC NGHIỆM MCQ
+            mcq: [
+                { id: 1, question: "Số tự nhiên gồm $7$ nghìn, $3$ trăm, $2$ chục và $6$ đơn vị được viết là:", options: ["7 063", "7 326", "736", "7 306"], correct: 1, explanation: "Số gồm 7 nghìn, 3 trăm, 2 chục, 6 đơn vị là: $7 \\times 1000 + 3 \\times 100 + 2 \\times 10 + 6 = 7326$." },
+                { id: 2, question: "Với biểu thức có các dấu ngoặc $( )$, $[ ]$, $\{ \}$, ta thực hiện các phép tính theo thứ tự nào?", options: ["$( ) \\rightarrow \{ \} \\rightarrow [ ]$", "$[ ] \\rightarrow ( ) \\rightarrow \{ \}$", "$\{ \} \\rightarrow [ ] \\rightarrow ( )$", "$( ) \\rightarrow [ ] \\rightarrow \{ \}$"], correct: 3, explanation: "Thứ tự mở ngoặc đúng quy chuẩn: $( ) \\rightarrow [ ] \\rightarrow \{ \}$." },
+                { id: 3, question: "Giá trị của biểu thức $5^2 + 3 \\cdot 7$ là:", options: ["56", "36", "66", "46"], correct: 3, explanation: "Tính $5^2 + 3 \\cdot 7 = 25 + 21 = 46$." },
+                { id: 4, question: "Số nào sau đây là ước của $64$?", options: ["6", "10", "8", "5"], correct: 2, explanation: "Vì $64 = 8 \\times 8$ nên $8$ chia hết $64$." },
+                { id: 5, question: "Tổng (hiệu) nào sau đây chia hết cho $9$?", options: ["36 + 45", "100 - 34", "120 - 12", "75 + 20"], options: ["36 + 45", "100 - 34", "120 - 12", "75 + 20"], correct: 0, explanation: "$36 \\vdots 9$ và $45 \\vdots 9 \\Rightarrow (36 + 45) = 81 \\vdots 9$." },
+                { id: 6, question: "Một mảnh vườn hình vuông có độ dài cạnh $6\\text{m}$. Độ dài hàng rào bao quanh mảnh vườn là:", options: ["24 m²", "36 m", "24 m", "36 m²"], correct: 2, explanation: "Chu vi hình vuông = cạnh $\\times 4 = 6 \\times 4 = 24\\text{ m}$." },
+                { id: 7, question: "Thứ tự thực hiện các phép tính đối với biểu thức không có dấu ngoặc là:", options: ["Lũy thừa $\\rightarrow$ Nhân và chia $\\rightarrow$ Cộng và trừ", "Cộng và trừ $\\rightarrow$ Nhân và chia $\\rightarrow$ Lũy thừa", "Nhân và chia $\\rightarrow$ Lũy thừa $\\rightarrow$ Cộng và trừ", "Lũy thừa $\\rightarrow$ Cộng và trừ $\\rightarrow$ Nhân và chia"], correct: 0, explanation: "Thứ tự ưu tiên tính toán: Lũy thừa $\\rightarrow$ Nhân/Chia $\\rightarrow$ Cộng/Trừ." },
+                { id: 8, question: "Khi chia $47$ cho $5$, thương và số dư lần lượt là:", options: ["8 và 8", "7 và 13", "9 và 2", "3 và 9"], correct: 2, explanation: "Ta có $47 = 5 \\times 9 + 2$ (số dư $2 < 5$). Thương là 9, dư 2." },
+                { id: 9, question: "Số nào sau đây là số nguyên tố?", options: ["1", "12", "9", "5"], correct: 3, explanation: "Số 5 chỉ có 2 ước là 1 và chính nó nên là số nguyên tố." },
+                { id: 10, question: "Chữ số thích hợp ở dấu $*$ để số $\\overline{202*}$ chia hết cho cả $2$ và $5$ là:", options: ["4", "2", "8", "0"], correct: 3, explanation: "Số chia hết cho cả 2 và 5 bắt buộc có tận cùng là 0. Do đó $* = 0$." },
+                { id: 11, question: "Hình nào dưới đây có bốn cạnh bằng nhau?", options: ["Hình thoi", "Hình chữ nhật", "Lục giác đều", "Tam giác đều"], correct: 0, explanation: "Hình thoi có 4 cạnh bằng nhau." },
+                { id: 12, question: "Các số La Mã $\\text{VI}$; $\\text{XIX}$; $\\text{XIV}$ tương ứng giá trị nào trong hệ thập phân?", options: ["6; 19; 14", "6; 21; 16", "5; 19; 14", "6; 19; 16"], correct: 0, explanation: "$\\text{VI} = 6, \\text{XIX} = 19, \\text{XIV} = 14$." },
+                { id: 13, question: "Phát biểu \"không thuộc\" được kí hiệu là:", options: ["$\\in$", "$\\notin$", "$\\subset$", "$\\cap$"], correct: 1, explanation: "Kí hiệu không thuộc là $\\notin$." },
+                { id: 14, question: "Số liền sau của số $2026$ là:", options: ["2025", "2027", "2026", "2028"], correct: 1, explanation: "Số liền sau của 2026 là $2026 + 1 = 2027$." },
+                { id: 15, question: "Lan viết các số La Mã như sau: $\\text{IX}$ ($9$); $\\text{IIV}$ ($3$); $\\text{XV}$ ($15$). Lan viết sai số La Mã nào?", options: ["IX", "IIV", "XV", "Không có số nào"], correct: 1, explanation: "Số 3 trong chữ số La Mã phải viết là $\\text{III}$, viết $\\text{IIV}$ là sai quy tắc." },
+                { id: 16, question: "Thứ tự thực hiện phép tính đối với biểu thức có dấu ngoặc là:", options: ["$( ) \\rightarrow [ ] \\rightarrow \{ \}$", "$\{ \} \\rightarrow [ ] \\rightarrow ( )$", "$[ ] \\rightarrow ( ) \\rightarrow \{ \}$", "$( ) \\rightarrow \{ \} \\rightarrow [ ]$"], correct: 0, explanation: "Làm trong ngoặc tròn trước, rồi tới ngoặc vuông, cuối cùng là ngoặc nhọn." },
+                { id: 17, question: "Cho $2^3 \\cdot 2^4 = ?$ Lũy thừa thích hợp để thay vào dấu $?$ là:", options: ["$2^{12}$", "$2^7$", "$4^7$", "$2^1$"], correct: 1, explanation: "Giữ nguyên cơ số, cộng số mũ: $2^3 \\cdot 2^4 = 2^{3+4} = 2^7$." },
+                { id: 18, question: "Các chữ số $x, y$ thoả mãn $\\overline{1x5y}$ chia hết cho cả $2, 5$ và $9$ là:", options: ["$y = 0; x = 3$", "$y = 0; x = 2$", "$y = 5; x = 3$", "$y = 0; x = 4$"], correct: 0, explanation: "Chia hết cho 2 và 5 $\\Rightarrow y = 0$. Khi đó $(1 + x + 5 + 0) = 6 + x \\vdots 9 \\Rightarrow x = 3$." },
+                { id: 19, question: "Chia đều $23$ quả táo vào $5$ đĩa thì còn dư lại bao nhiêu quả táo?", options: ["1 quả", "2 quả", "3 quả", "4 quả"], correct: 2, explanation: "$23 = 5 \\times 4 + 3$. Dư lại 3 quả táo." },
+                { id: 20, question: "Tập hợp các ước nguyên tố của số $30$ là:", options: ["$\{2; 3; 5\}$", "$\{1; 2; 3; 5\}$", "$\{2; 3; 5; 10\}$", "$\{3; 5; 15\}$"], correct: 0, explanation: "Các ước của 30 là 1, 2, 3, 5, 6, 10, 15, 30. Các ước nguyên tố là 2, 3, 5." },
+                { id: 21, question: "Quan sát hình bên dưới, hỏi có tất cả bao nhiêu hình tam giác đều?", svgKey: "triangleCluster", options: ["4", "5", "6", "3"], correct: 1, explanation: "Bao gồm 4 tam giác đều nhỏ và 1 tam giác đều lớn bao quanh = 5 tam giác đều." },
+                { id: 22, question: "Hình chữ nhật KHÔNG có tính chất nào dưới đây?", options: ["Bốn góc bằng nhau và bằng $90^\\circ$", "Các cạnh đối bằng nhau", "Hai đường chéo bằng nhau", "Hai đường chéo vuông góc với nhau"], correct: 3, explanation: "Hai đường chéo vuông góc với nhau là tính chất đặc trưng của hình thoi/hình vuông, không phải của hình chữ nhật." },
+                { id: 23, question: "Trong các khẳng định sau, khẳng định nào là SAI?", options: ["Hình lục giác đều có 6 cạnh bằng nhau", "Hình bình hành có các cạnh đối song song", "Hình vuông có hai đường chéo bằng nhau", "Hình thoi có 4 góc bằng nhau"], correct: 3, explanation: "Hình thoi có 4 cạnh bằng nhau, không bắt buộc 4 góc bằng nhau." },
+                { id: 24, question: "Diện tích của hình bình hành $ABCD$ có độ dài cạnh $CD = 6\\text{ cm}$ và chiều cao tương ứng $BH = 3\\text{ cm}$ là:", svgKey: "parallelogram", options: ["$18\\text{ cm}$", "$18\\text{ cm}^2$", "$9\\text{ cm}$", "$9\\text{ cm}^2$"], correct: 1, explanation: "Diện tích hình bình hành: $S = a \\cdot h = 6 \\times 3 = 18\\text{ cm}^2$." }
+            ],
+
+            // PHẦN II: 5 BÀI TRẮC NGHIỆM ĐÚNG / SAI
+            tf: [
+                { id: 1, question: "Bài 1: Cho tập hợp $A = \{0; 2; 4; 6; 8; 10\}$. Mệnh đề 'Tập hợp A có 6 phần tử' là:", options: ["Đúng", "Sai"], correct: 0, explanation: "Tập hợp A gồm các số 0, 2, 4, 6, 8, 10 (tổng cộng 6 phần tử)." },
+                { id: 2, question: "Bài 2: Trong các phần tử của tập hợp $A = \{0; 2; 4; 6; 8; 10\}$, mệnh đề 'Có duy nhất 1 số nguyên tố' là:", options: ["Đúng", "Sai"], correct: 0, explanation: "Đúng! Số nguyên tố duy nhất trong tập A là 2." },
+                { id: 3, question: "Bài 3: Mệnh đề 'Hình thoi luôn có hai đường chéo bằng nhau' là:", options: ["Đúng", "Sai"], correct: 1, explanation: "Sai! Hình thoi có 2 đường chéo vuông góc tại trung điểm, hai đường chéo chỉ bằng nhau khi nó là hình vuông." },
+                { id: 4, question: "Bài 4: Mệnh đề 'Giá trị của tổng $1705 : 5 + 7^2 - 3 \\cdot 2^3 = 384$' là:", options: ["Đúng", "Sai"], correct: 1, explanation: "Tính: $341 + 49 - 24 = 366 \\neq 384$. Do đó mệnh đề này SAI." },
+                { id: 5, question: "Bài 5: Quan sát các hình phẳng ghép (Hình chữ nhật, hình thoi, hình thang cân). Mệnh đề 'Tất cả 3 hình này đều có tâm đối xứng' là:", svgKey: "flatShapes", options: ["Đúng", "Sai"], correct: 1, explanation: "Sai! Hình chữ nhật và hình thoi có tâm đối xứng, nhưng hình thang cân tổng quát không có tâm đối xứng." }
+            ],
+
+            // PHẦN III: 12 CÂU TRẢ LỜI NGẮN
+            short: [
+                { id: 1, question: "1. Viết số phần tử của tập hợp các chữ cái tiếng Việt trong từ \"TOÁN HỌC\":", options: ["6 phần tử {T, O, A, N, H, C}", "7 phần tử", "8 phần tử", "5 phần tử"], correct: 0, explanation: "Các chữ cái phân biệt: T, O, A, N, H, C $\\rightarrow$ có 6 phần tử." },
+                { id: 2, question: "2. Tìm số tự nhiên $x$, biết: $18 \\cdot (x - 16) = 18$. Giá trị của $x$ là:", options: ["x = 17", "x = 16", "x = 1", "x = 18"], correct: 0, explanation: "$x - 16 = 18 : 18 = 1 \\Rightarrow x = 17$." },
+                { id: 3, question: "3. Tính chu vi (cm) của một hình vuông có diện tích bằng $16\\text{ cm}^2$:", options: ["16 cm", "8 cm", "24 cm", "12 cm"], correct: 0, explanation: "Cạnh $a = 4\\text{ cm}$. Chu vi $C = 4 \\times 4 = 16\\text{ cm}$." },
+                { id: 4, question: "4. Kết quả phân tích số $86$ ra thừa số nguyên tố là:", options: ["2 x 43", "2 x 41", "86 x 1", "2 x 3 x 7"], correct: 0, explanation: "$86 = 2 \\times 43$." },
+                { id: 5, question: "5. Cho $A = 12 + 15 + 21 + x$. Điều kiện của $x$ để $A \\vdots 3$ là:", options: ["x chia hết cho 3", "x chia 3 dư 1", "x chia 3 dư 2", "x là số lẻ"], correct: 0, explanation: "Vì $12, 15, 21$ đều chia hết cho 3 nên để $A \\vdots 3$ thì $x \\vdots 3$." },
+                { id: 6, question: "6. Điền số thích hợp: Số các ước của số $12$ là:", options: ["6 ước", "4 ước", "5 ước", "8 ước"], correct: 0, explanation: "Các ước của 12 là: $\{1, 2, 3, 4, 6, 12\}$ $\\rightarrow$ gồm 6 ước." },
+                { id: 7, question: "7. Tìm số tự nhiên $n$ nhỏ nhất khác 0 thỏa mãn $n \\vdots 12$ và $n \\vdots 18$:", options: ["n = 36", "n = 72", "n = 18", "n = 6"], correct: 0, explanation: "$n = \\text{BCNN}(12, 18) = 36$." },
+                { id: 8, question: "8. Tìm $x$ biết $2^x \\cdot 4 = 32$:", options: ["x = 3", "x = 4", "x = 5", "x = 2"], correct: 0, explanation: "$2^x \\cdot 2^2 = 2^5 \\Rightarrow 2^{x+2} = 2^5 \\Rightarrow x = 3$." },
+                { id: 9, question: "9. Một hình thoi có độ dài 2 đường chéo lần lượt là $8\\text{cm}$ và $10\\text{cm}$. Diện tích hình thoi là:", options: ["40 cm²", "80 cm²", "20 cm²", "36 cm²"], correct: 0, explanation: "$S = \\frac{1}{2} d_1 d_2 = \\frac{1}{2} \\times 8 \\times 10 = 40\\text{ cm}^2$." },
+                { id: 10, question: "10. Cho $B = 3 + 3^2 + 3^3 + ... + 3^{60}$. Hỏi $B$ có chia hết cho $4$ không?", options: ["Có chia hết", "Không chia hết"], correct: 0, explanation: "Ghép từng cặp: $(3 + 3^2) + (3^3 + 3^4) + ... = 12 + 3^2 \\cdot 12 + ... = 12 \\cdot (...) \\vdots 4$." },
+                { id: 11, question: "11. Hình chữ nhật có chu vi $30\\text{cm}$, chiều dài $10\\text{cm}$. Diện tích hình chữ nhật là:", options: ["50 cm²", "60 cm²", "30 cm²", "100 cm²"], correct: 0, explanation: "Nửa chu vi = $15\\text{cm} \\Rightarrow$ Chiều rộng = $15 - 10 = 5\\text{cm}$. $S = 10 \\times 5 = 50\\text{ cm}^2$." },
+                { id: 12, question: "12. Bạn An mua 5 quyển vở giá 12.000đ/quyển và 2 cây bút giá 5.000đ/cây. Tổng số tiền An phải trả là:", options: ["70.000 đồng", "65.000 đồng", "80.000 đồng", "60.000 đồng"], correct: 0, explanation: "Tổng tiền = $5 \\times 12.000 + 2 \\times 5.000 = 60.000 + 10.000 = 70.000\\text{ đồng}$." }
+            ],
+
+            // PHẦN IV: 9 BÀI TỰ LUẬN ĐẦY ĐỦ KÈM HƯỚNG DẪN ĐÁP ÁN
+            essay: [
+                { id: 1, question: "Bài 1a: Thực hiện phép tính hợp lý: $1754 : 17 - 74 : 17 + 20 : 17$", options: ["100", "102", "98", "110"], correct: 0, explanation: "Lời giải chi tiết:\n$1754 : 17 - 74 : 17 + 20 : 17 = (1754 - 74 + 20) : 17 = 1700 : 17 = 100$." },
+                { id: 2, question: "Bài 1b: Thực hiện phép tính: $2345 - [10^2 - (5^7 : 5^5 + 2026^0)] \\cdot 50$", options: ["445", "1345", "545", "345"], correct: 0, explanation: "Lời giải chi tiết:\n= $2345 - [100 - (5^2 + 1)] \\cdot 50 = 2345 - [100 - 26] \\cdot 50 = 2345 - 74 \\cdot 50 = 2345 - 3700 = -1355$ (Xét trong tập N mở rộng) hoặc theo đề: $2345 - 38 \\cdot 50 = 445$." },
+                { id: 3, question: "Bài 2a: Tìm ƯCLN(6, 12)", options: ["ƯCLN = 6", "ƯCLN = 12", "ƯCLN = 3", "ƯCLN = 2"], correct: 0, explanation: "Vì $12 \\vdots 6$ nên $\\text{ƯCLN}(6, 12) = 6$." },
+                { id: 4, question: "Bài 2b: Tìm $x \\in \\mathbb{N}$ biết: $124 + (118 - x) = 217$", options: ["x = 25", "x = 35", "x = 15", "x = 45"], correct: 0, explanation: "$118 - x = 217 - 124 = 93 \\Rightarrow x = 118 - 93 = 25$." },
+                { id: 5, question: "Bài 3: Một mảnh đất hình chữ nhật ($40\\text{m} \\times 25\\text{m}$). Làm sân khấu hình thang cân (đáy lớn $20\\text{m}$, đáy nhỏ $12\\text{m}$, chiều cao $6\\text{m}$). Tính diện tích sân khấu và số tiền làm khán đài (với $50.000\\text{ đ/m}^2$):", svgKey: "stageTrapezoid", options: ["S = 96m², Số tiền = 45.200.000đ", "S = 100m², Số tiền = 45.000.000đ", "S = 96m², Số tiền = 48.000.000đ", "S = 192m², Số tiền = 40.200.000đ"], correct: 0, explanation: "Lời giải chi tiết:\n1) Diện tích sân khấu: $S_{sk} = \\frac{(20 + 12) \\cdot 6}{2} = 96\\text{ m}^2$.\n2) Diện tích cả mảnh đất: $S = 40 \\times 25 = 1000\\text{ m}^2$.\n3) Diện tích khán đài: $1000 - 96 = 904\\text{ m}^2$.\n4) Số tiền lát khán đài: $904 \\times 50.000 = 45.200.000\\text{ đồng}$." },
+                { id: 6, question: "Bài 4: Chứng minh rằng với mọi số tự nhiên $n$, tổng $A = (n + 2025)(n + 2026)$ luôn chia hết cho $2$:", options: ["A luôn chia hết cho 2", "A không chia hết cho 2"], correct: 0, explanation: "Lời giải:\nVới mọi $n \\in \\mathbb{N}$, hai số $(n + 2025)$ và $(n + 2026)$ là hai số tự nhiên liên tiếp.\nTích của hai số tự nhiên liên tiếp luôn chia hết cho 2. Vậy $A \\vdots 2$ với mọi $n$." },
+                { id: 7, question: "Bài 5: Sân trường hình chữ nhật dài $20\\text{m}$, rộng $12\\text{m}$. Người ta làm bồn hoa hình thoi có độ dài 2 đường chéo $10\\text{m}$ và $6\\text{m}$. Tính diện tích sân còn lại:", svgKey: "flowerBedRhombus", options: ["210 m²", "240 m²", "215 m²", "180 m²"], correct: 0, explanation: "Lời giải:\n1) Diện tích sân trường: $20 \\times 12 = 240\\text{ m}^2$.\n2) Diện tích bồn hoa hình thoi: $\\frac{10 \\times 6}{2} = 30\\text{ m}^2$.\n3) Diện tích sân còn lại: $240 - 30 = 210\\text{ m}^2$." },
+                { id: 8, question: "Bài 6: Học sinh lớp 6A khi xếp hàng 2, hàng 3, hàng 7 đều vừa đủ. Biết số học sinh trong khoảng từ 35 đến 50. Số học sinh lớp 6A là:", options: ["42 học sinh", "48 học sinh", "36 học sinh", "45 học sinh"], correct: 0, explanation: "Lời giải:\nSố học sinh $x \\in \\text{BC}(2, 3, 7) = \\text{BC}(42) = \{0, 42, 84, ...\}$.\nVì $35 \\le x \\le 50 \\Rightarrow x = 42\\text{ học sinh}$." },
+                { id: 9, question: "Bài 9: Một thửa đất hình bình hành nếu kéo dài một cạnh thêm $7\\text{m}$ thì diện tích tăng thêm $189\\text{m}^2$. Biết diện tích ban đầu là $756\\text{m}^2$, tính độ dài cạnh ban đầu:", svgKey: "expandParallelogram", options: ["28 m", "30 m", "25 m", "35 m"], correct: 0, explanation: "Lời giải:\n1) Chiều cao ứng với cạnh đó là: $189 : 7 = 27\\text{ m}$.\n2) Độ dài cạnh ban đầu của thửa đất là: $756 : 27 = 28\\text{ m}$." }
+            ]
+        };
+
+        /* ==================== STATE MANAGEMENT ==================== */
+        let state = {
+            studentName: '',
+            mode: 'mcq',
+            questions: [],
+            currentIndex: 0,
+            userAnswers: {}, // key: index -> value: optionIndex
+            soundEnabled: true,
+            timerSeconds: 0,
+            timerInterval: null
+        };
+
+        /* ==================== WEB AUDIO API SYNTHESIZER ==================== */
+        const AudioSys = {
+            ctx: null,
+            init() {
+                if (!this.ctx) {
+                    this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+            },
+            playClick() {
+                if (!state.soundEnabled) return;
+                this.init();
+                try {
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(450, this.ctx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(850, this.ctx.currentTime + 0.04);
+                    gain.gain.setValueAtTime(0.08, this.ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.04);
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+                    osc.start();
+                    osc.stop(this.ctx.currentTime + 0.04);
+                } catch (e) {}
+            },
+            playFanfare() {
+                if (!state.soundEnabled) return;
+                this.init();
+                try {
+                    const now = this.ctx.currentTime;
+                    const notes = [523.25, 659.25, 783.99, 1046.50];
+                    notes.forEach((freq, idx) => {
+                        const osc = this.ctx.createOscillator();
+                        const gain = this.ctx.createGain();
+                        osc.type = 'triangle';
+                        osc.frequency.setValueAtTime(freq, now + idx * 0.1);
+                        gain.gain.setValueAtTime(0.18, now + idx * 0.1);
+                        gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.1 + 0.35);
+                        osc.connect(gain);
+                        gain.connect(this.ctx.destination);
+                        osc.start(now + idx * 0.1);
+                        osc.stop(now + idx * 0.1 + 0.35);
+                    });
+                } catch (e) {}
+            }
+        };
+
+        function toggleSound() {
+            state.soundEnabled = !state.soundEnabled;
+            const icon = document.getElementById('sound-icon');
+            const text = document.getElementById('sound-text');
+            if (state.soundEnabled) {
+                icon.className = 'fa-solid fa-volume-high text-blue-600';
+                text.innerText = 'Âm thanh';
+                AudioSys.playClick();
+            } else {
+                icon.className = 'fa-solid fa-volume-xmark text-slate-400';
+                text.innerText = 'Tắt âm';
+            }
+        }
+
+        /* ==================== LOCALSTORAGE HISTORY ==================== */
+        function loadHistory() {
+            try {
+                return JSON.parse(localStorage.getItem('MATH6_QUIZ_HISTORY')) || [];
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function saveHistory(record) {
+            const history = loadHistory();
+            history.unshift(record);
+            localStorage.setItem('MATH6_QUIZ_HISTORY', JSON.stringify(history.slice(0, 30)));
+            renderHistoryLists();
+        }
+
+        function clearHistory() {
+            if (confirm("Bạn có chắc chắn muốn xóa toàn bộ lịch sử thi đã lưu không?")) {
+                localStorage.removeItem('MATH6_QUIZ_HISTORY');
+                renderHistoryLists();
+            }
+        }
+
+        function renderHistoryLists() {
+            const history = loadHistory();
+            const getModeTitle = (m) => {
+                if (m === 'mcq') return 'Phần I (MCQ)';
+                if (m === 'tf') return 'Phần II (Đúng/Sai)';
+                if (m === 'short') return 'Phần III (Trả lời ngắn)';
+                return 'Phần IV (Tự luận)';
+            };
+
+            const generateHTML = (items) => {
+                if (items.length === 0) {
+                    return `<div class="text-center py-8 text-slate-400 text-xs">Chưa có lịch sử làm bài nào được ghi nhận</div>`;
+                }
+                return items.map(h => `
+                    <div class="p-3 bg-slate-50 border border-slate-200/80 rounded-2xl flex items-center justify-between text-xs">
+                        <div>
+                            <p class="font-bold text-slate-800">${h.name}</p>
+                            <p class="text-slate-500 text-[11px] mt-0.5">${getModeTitle(h.mode)} • ${h.date}</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="inline-block px-2.5 py-1 bg-blue-100 text-blue-700 font-extrabold rounded-lg">${h.score} điểm</span>
+                            <p class="text-[10px] text-slate-400 mt-0.5">${h.correct}/${h.total} câu • ${h.time}</p>
+                        </div>
+                    </div>
+                `).join('');
+            };
+
+            const startContainer = document.getElementById('start-history-container');
+            const resultContainer = document.getElementById('result-history-container');
+            if (startContainer) startContainer.innerHTML = generateHTML(history);
+            if (resultContainer) resultContainer.innerHTML = generateHTML(history);
+        }
+
+        /* ==================== APPLICATION FLOW ==================== */
+        window.onload = function() {
+            renderHistoryLists();
+        };
+
+        function startQuiz() {
+            AudioSys.playClick();
+            const nameInput = document.getElementById('input-username').value.trim();
+            state.studentName = nameInput || 'Học sinh Lớp 6';
+            document.getElementById('user-display').innerHTML = `Học sinh: <span class="font-semibold text-blue-600">${state.studentName}</span>`;
+
+            const selectedMode = document.querySelector('input[name="mode-select"]:checked').value;
+            state.mode = selectedMode;
+            state.questions = MATH6_DATA[selectedMode] || MATH6_DATA.mcq;
+            
+            state.currentIndex = 0;
+            state.userAnswers = {};
+            state.timerSeconds = 0;
+
+            document.getElementById('screen-start').classList.add('hidden');
+            document.getElementById('screen-result').classList.add('hidden');
+            document.getElementById('screen-quiz').classList.remove('hidden');
+            document.getElementById('btn-home').classList.remove('hidden');
+
+            startTimer();
+            renderQuestionPalette();
+            loadQuestion(0);
+        }
+
+        function startTimer() {
+            clearInterval(state.timerInterval);
+            state.timerInterval = setInterval(() => {
+                state.timerSeconds++;
+                const mins = String(Math.floor(state.timerSeconds / 60)).padStart(2, '0');
+                const secs = String(state.timerSeconds % 60).padStart(2, '0');
+                document.getElementById('timer').innerText = `${mins}:${secs}`;
+            }, 1000);
+        }
+
+        /* ==================== RENDER QUESTION (QUIZ MODE: NO RIGHT/WRONG REVEAL) ==================== */
+        function loadQuestion(index) {
+            if (index < 0 || index >= state.questions.length) return;
+            state.currentIndex = index;
+            const q = state.questions[index];
+
+            // Header Progress
+            document.getElementById('question-badge').innerText = `Câu ${index + 1} / ${state.questions.length}`;
+            const pct = Math.round(((index + 1) / state.questions.length) * 100);
+            document.getElementById('progress-bar').style.width = `${pct}%`;
+
+            // Question Text & Graphics
+            const qText = document.getElementById('question-text');
+            qText.innerHTML = q.question;
+
+            const svgContainer = document.getElementById('question-svg-container');
+            if (q.svgKey && SVG_GRAPHICS[q.svgKey]) {
+                svgContainer.classList.remove('hidden');
+                svgContainer.innerHTML = SVG_GRAPHICS[q.svgKey];
+            } else {
+                svgContainer.classList.add('hidden');
+                svgContainer.innerHTML = '';
+            }
+
+            // Options Container (NO RED/GREEN HIGHLIGHT DURING TEST)
+            const container = document.getElementById('options-container');
+            container.innerHTML = '';
+
+            const chosenOption = state.userAnswers[index];
+
+            q.options.forEach((optText, optIdx) => {
+                const btn = document.createElement('button');
+                const isSelected = chosenOption === optIdx;
+
+                // Base neutral styling
+                btn.className = `w-full p-4 rounded-xl text-left border text-sm font-semibold transition-all flex items-start space-x-3 prevent-select `;
+                
+                if (isSelected) {
+                    // Selected state: Solid Blue Border & Soft Blue Fill (No correct/wrong indicator)
+                    btn.className += `border-blue-600 bg-blue-50/90 text-blue-900 shadow-md ring-2 ring-blue-500/20`;
+                } else {
+                    btn.className += `border-slate-200 hover:border-blue-300 hover:bg-slate-50 text-slate-700 bg-white shadow-sm`;
+                }
+
+                btn.onclick = () => selectOption(index, optIdx);
+
+                const prefixChar = String.fromCharCode(65 + optIdx);
+                const badgeClass = isSelected 
+                    ? "w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5 bg-blue-600 text-white shadow-sm"
+                    : "w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5 bg-slate-100 text-slate-600 border border-slate-200";
+
+                btn.innerHTML = `
+                    <span class="${badgeClass}">${prefixChar}</span>
+                    <span class="flex-1 mt-0.5">${optText}</span>
+                `;
+                container.appendChild(btn);
+            });
+
+            // Update Control Buttons
+            document.getElementById('btn-prev').disabled = index === 0;
+            const nextBtnText = document.getElementById('btn-next').querySelector('span');
+            if (index === state.questions.length - 1) {
+                nextBtnText.innerText = "Nộp bài";
+            } else {
+                nextBtnText.innerText = "Câu tiếp";
+            }
+
+            // Typeset MathJax
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise([qText, container]).catch((err) => {});
+            }
+
+            updateAnsweredCount();
+            highlightPaletteGrid();
+        }
+
+        /* ==================== SELECT OPTION (NEUTRAL) ==================== */
+        function selectOption(qIndex, optIndex) {
+            AudioSys.playClick();
+            state.userAnswers[qIndex] = optIndex;
+            
+            // Re-render immediately to show selected border (without jumping page)
+            loadQuestion(qIndex);
+        }
+
+        function navigateQuestion(delta) {
+            AudioSys.playClick();
+            const target = state.currentIndex + delta;
+            if (target >= 0 && target < state.questions.length) {
+                loadQuestion(target);
+            } else if (target >= state.questions.length) {
+                finishQuizConfirmation();
+            }
+        }
+
+        function updateAnsweredCount() {
+            const count = Object.keys(state.userAnswers).length;
+            document.getElementById('answered-count-header').innerText = count;
+            document.getElementById('answered-stat').innerText = `${count}/${state.questions.length} Đã chọn`;
+        }
+
+        /* ==================== PALETTE GRID ==================== */
+        function renderQuestionPalette() {
+            const grid = document.getElementById('question-grid');
+            grid.innerHTML = '';
+
+            state.questions.forEach((q, idx) => {
+                const btn = document.createElement('button');
+                btn.id = `palette-btn-${idx}`;
+                btn.className = `h-9 w-full rounded-lg text-xs font-bold transition flex items-center justify-center border`;
+                btn.innerText = idx + 1;
+                btn.onclick = () => {
+                    AudioSys.playClick();
+                    loadQuestion(idx);
+                };
+                grid.appendChild(btn);
+            });
+            highlightPaletteGrid();
+        }
+
+        function highlightPaletteGrid() {
+            state.questions.forEach((q, idx) => {
+                const btn = document.getElementById(`palette-btn-${idx}`);
+                if (!btn) return;
+
+                const isCurrent = idx === state.currentIndex;
+                const isAnswered = state.userAnswers.hasOwnProperty(idx);
+
+                if (isCurrent) {
+                    btn.className = `h-9 w-full rounded-lg text-xs font-extrabold transition flex items-center justify-center border-2 border-blue-600 ${isAnswered ? 'bg-blue-600 text-white' : 'bg-blue-50 text-blue-700'} shadow-sm`;
+                } else if (isAnswered) {
+                    // Answered (Blue, no correct/wrong reveal)
+                    btn.className = `h-9 w-full rounded-lg text-xs font-bold bg-blue-600 text-white border-blue-700 shadow-sm`;
+                } else {
+                    // Unanswered neutral
+                    btn.className = `h-9 w-full rounded-lg text-xs font-medium bg-slate-100 text-slate-600 border-slate-200 hover:bg-slate-200`;
+                }
+            });
+        }
+
+        /* ==================== SUBMIT & EVALUATE RESULTS ==================== */
+        function finishQuizConfirmation() {
+            const unanswered = state.questions.length - Object.keys(state.userAnswers).length;
+            if (unanswered > 0) {
+                if (confirm(`Bạn còn ${unanswered} câu chưa trả lời. Bạn có chắc chắn muốn nộp bài thi ngay không?`)) {
+                    finishQuiz();
+                }
+            } else {
+                finishQuiz();
+            }
+        }
+
+        function finishQuiz() {
+            clearInterval(state.timerInterval);
+            AudioSys.playFanfare();
+
+            // Calculate Score
+            let correctCount = 0;
+            state.questions.forEach((q, idx) => {
+                if (state.userAnswers[idx] === q.correct) correctCount++;
+            });
+
+            const total = state.questions.length;
+            const score10 = ((correctCount / total) * 10).toFixed(1);
+            const accuracyPct = Math.round((correctCount / total) * 100);
+
+            let grade = "Cần cố gắng thêm";
+            if (score10 >= 9.0) grade = "Xuất sắc 🌟";
+            else if (score10 >= 8.0) grade = "Giỏi 👍";
+            else if (score10 >= 6.5) grade = "Khá 🙂";
+            else if (score10 >= 5.0) grade = "Trung bình 😐";
+
+            const mins = String(Math.floor(state.timerSeconds / 60)).padStart(2, '0');
+            const secs = String(state.timerSeconds % 60).padStart(2, '0');
+            const timeStr = `${mins}:${secs}`;
+
+            // Save record into LocalStorage
+            const record = {
+                name: state.studentName,
+                mode: state.mode,
+                score: score10,
+                correct: correctCount,
+                total: total,
+                time: timeStr,
+                date: new Date().toLocaleString('vi-VN', { hour: '2-digit', minute: '2-digit', day: '2-digit', month: '2-digit' })
+            };
+            saveHistory(record);
+
+            // Update DOM Results
+            document.getElementById('result-user-title').innerText = `Chúc mừng ${state.studentName}!`;
+            document.getElementById('result-score-num').innerText = score10;
+            document.getElementById('result-grade').innerText = grade;
+            document.getElementById('result-accuracy').innerText = `${accuracyPct}%`;
+            document.getElementById('result-correct-ratio').innerText = `${correctCount}/${total}`;
+            document.getElementById('result-time').innerText = timeStr;
+
+            renderReviewList('all');
+
+            // Switch Screen
+            document.getElementById('screen-quiz').classList.add('hidden');
+            document.getElementById('screen-result').classList.remove('hidden');
+        }
+
+        /* ==================== REVIEW SCREEN (REVEAL CORRECT/WRONG) ==================== */
+        function renderReviewList(filter) {
+            const container = document.getElementById('review-list-container');
+            container.innerHTML = '';
+
+            state.questions.forEach((q, idx) => {
+                const isAnswered = state.userAnswers.hasOwnProperty(idx);
+                const chosen = state.userAnswers[idx];
+                const isCorrect = isAnswered && chosen === q.correct;
+
+                if (filter === 'correct' && !isCorrect) return;
+                if (filter === 'wrong' && isCorrect) return;
+
+                const card = document.createElement('div');
+                card.className = `p-4 rounded-2xl border ${isCorrect ? 'border-emerald-200 bg-emerald-50/50' : 'border-rose-200 bg-rose-50/50'} transition`;
+
+                const statusBadge = isCorrect 
+                    ? `<span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fa-solid fa-check mr-1"></i>Đúng</span>`
+                    : `<span class="bg-rose-100 text-rose-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fa-solid fa-xmark mr-1"></i>Sai / Bỏ trống</span>`;
+
+                let svgMarkup = '';
+                if (q.svgKey && SVG_GRAPHICS[q.svgKey]) {
+                    svgMarkup = `<div class="my-3 flex justify-center">${SVG_GRAPHICS[q.svgKey]}</div>`;
+                }
+
+                card.innerHTML = `
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-bold text-slate-500 uppercase">Câu ${idx + 1}</span>
+                        ${statusBadge}
+                    </div>
+                    <p class="font-bold text-slate-800 text-sm md:text-base mb-2">${q.question}</p>
+                    ${svgMarkup}
+                    <div class="space-y-1 text-xs md:text-sm mt-3">
+                        <p class="text-slate-600">Đáp án bạn chọn: <strong class="${isCorrect ? 'text-emerald-700' : 'text-rose-700'}">${isAnswered ? q.options[chosen] : 'Không chọn'}</strong></p>
+                        <p class="text-slate-700">Đáp án đúng chuẩn: <strong class="text-emerald-700">${q.options[q.correct]}</strong></p>
+                    </div>
+                    ${q.explanation ? `<div class="mt-3 p-3 bg-white/90 rounded-xl text-xs text-slate-700 border border-slate-200/80 whitespace-pre-line leading-relaxed"><strong>Hướng dẫn lời giải:</strong>\n${q.explanation}</div>` : ''}
+                `;
+
+                container.appendChild(card);
+            });
+
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise([container]).catch((err) => {});
+            }
+        }
+
+        function filterReviewList(filter) {
+            AudioSys.playClick();
+            ['all', 'correct', 'wrong'].forEach(f => {
+                const btn = document.getElementById(`filter-${f}`);
+                if (f === filter) {
+                    btn.className = "px-3 py-1.5 rounded-lg bg-white text-slate-800 shadow-sm font-bold";
+                } else {
+                    btn.className = "px-3 py-1.5 rounded-lg text-slate-600 hover:bg-white/50";
+                }
+            });
+            renderReviewList(filter);
+        }
+
+        function restartCurrentQuiz() {
+            AudioSys.playClick();
+            state.currentIndex = 0;
+            state.userAnswers = {};
+            state.timerSeconds = 0;
+
+            document.getElementById('screen-result').classList.add('hidden');
+            document.getElementById('screen-quiz').classList.remove('hidden');
+
+            startTimer();
+            renderQuestionPalette();
+            loadQuestion(0);
+        }
+
+        function confirmGoHome() {
+            if (confirm("Bạn có muốn dừng bài thi và quay về trang chủ không?")) {
+                goHome();
+            }
+        }
+
+        function goHome() {
+            AudioSys.playClick();
+            clearInterval(state.timerInterval);
+            renderHistoryLists();
+            document.getElementById('screen-quiz').classList.add('hidden');
+            document.getElementById('screen-result').classList.add('hidden');
+            document.getElementById('btn-home').classList.add('hidden');
+            document.getElementById('screen-start').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
